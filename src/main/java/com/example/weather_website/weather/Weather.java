@@ -2,12 +2,32 @@ package com.example.weather_website.weather;
 
 import java.time.LocalDate;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.SequenceGenerator;
+import jakarta.persistence.Table;
+
+@Entity
+@Table
 public class Weather {
+    
+    @Id
+    @SequenceGenerator(
+        name = "weather_sequence",
+        sequenceName = "weather_sequence",
+        allocationSize = 1
+    )
+    @GeneratedValue(
+        strategy = GenerationType.SEQUENCE,
+        generator = "weather_sequence"
+    )
     private Long id;
     private String city;
     private LocalDate date;
     private Double temperature;
-    private Double humidity;
+    private Double humidity;    
     
     public Weather() {}
 
