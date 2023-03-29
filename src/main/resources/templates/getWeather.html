@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Weather</title>
+</head>
+<body>
+    <div th:app="weatherApp" th:controller="WeatherController">
+        <table>
+            <thead>
+                <tr>
+                    <th>City</th>
+                    <th>Date</th>
+                    <th>Temperature</th>
+                    <th>Humidity</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="weather : ${weathers}">
+                    <td th:text="${weather.city}"></td>
+                    <td th:text="${weather.date}"></td>
+                    <td th:text="${weather.temperature}"></td>
+                    <td th:text="${weather.humidity}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html> 
