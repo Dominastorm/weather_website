@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Weather</title>
+</head>
+<body>
+    <h1>Add Weather</h1>
+    <form th:action="@{/add_weather}" method="put" th:object="${weather}">
+        <label for="city">City:</label>
+        <input type="text" id="city" name="city" th:field="*{city}" required>
+
+        <label for="date">Date:</label>
+        <input type="date" id="date" name="date" th:field="*{date}" required>
+
+        <label for="temperature">Temperature:</label>
+        <input type="number" id="temperature" name="temperature" th:field="*{temperature}" required>
+
+        <label for="humidity">Humidity:</label>
+        <input type="number" id="humidity" name="humidity" th:field="*{humidity}" required>
+
+        <button type="submit">Add</button>
+    </form>
+</body> 
+</html>
