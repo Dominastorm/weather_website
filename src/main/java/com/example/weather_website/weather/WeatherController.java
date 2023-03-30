@@ -1,30 +1,40 @@
 package com.example.weather_website.weather;
 
-import java.time.LocalDate;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ModelAttribute;
+// import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 public class WeatherController {
-	@GetMapping("/get_weather")
-	public String getWeather(@RequestParam(name = "weathers", required = false) List<Weather> weathers, Model model) {
-		model.addAttribute("weathers", List.of(
-				new Weather(
-						1L,
-						"London",
-						LocalDate.now(),
-						10.0,
-						80.0),
-				new Weather(
-						2L,
-						"Paris",
-						LocalDate.now(),
-						12.0,
-						70.0)));
-		return "getWeather";
-	}
+    @Autowired
+    private WeatherService weatherService;
+
+    @GetMapping("/get_weather")
+    public String getWeather(Model model) {
+        List<Weather> weathers = weatherService.getAllWeather();
+        model.addAttribute("weathers", weathers);
+        return "getWeather";
+    }
+
+    @GetMapping("/add_weather")
+    public String showAddWeatherForm(Model model) {
+        Weather weather = new Weather();
+        model.addAttribute("weather", weather);
+        return "addWeather";
+    }
+
+    @PutMapping("/add_weather")
+    @RequestMapping(method=RequestMethod.PUT)
+    public String addWeather(@ModelAttribute("weather") Weather weather) {
+        weatherService.addWeather(weather);
+        return "redirect:/get_weather";
+    }
 }
